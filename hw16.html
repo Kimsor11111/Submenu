@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQ7</title>
+    <script src="JQuery.js"></script>
+</head>
+<style>
+    .container{
+        width: 800px;
+        height: 600px;
+        margin: auto;
+    }
+    .image{
+        width: 100%;
+        height: 100%;
+        float: left;
+    }
+    .image img{
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .next,.back{
+        width: 60px;
+        height: 30px;
+        background-color: green;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 2px solid red;
+        color: white;
+        border-radius: 10px;
+        cursor: pointer;
+        position: absolute;
+        transform: translate(730px , 280px);
+    }
+    .back{
+        transform: translate(5px , 280px);
+    }
+</style>
+<body>
+    <div class="container">
+        <div class="back">
+            BACK
+        </div>
+        <div class="next">
+            NEXT
+        </div>
+        <div class="image">
+            <img src="img/20171126_Angkor_Wat_4712_DxO.jpg" alt="">
+        </div>
+        <div class="image">
+            <img src="img/5f.jpg" alt="">
+        </div>
+        <div class="image">
+            <img src="img/Angkor-Wat-Cambodia-tree-temple--2-.jpg" alt="">
+        </div>
+        <div class="image">
+            <img src="img/Angkor_Wat_Temple.jpg" alt="">
+        </div>
+    </div>
+</body>
+<script>
+    $(document).ready(()=>{
+        var slide = $('.image');
+        var index = 0;
+        var index_num = slide.length;
+        slide.hide();
+        slide.eq(index).show();
+        $('.next').click(function(){
+            slide.eq(index).hide();
+            index++;
+            if(index>=index_num){
+                index=0;
+            }
+            slide.eq(index).show();
+        })
+        $('.back').click(function(){
+            slide.eq(index).hide();
+            index--;
+            if(index<0){
+                index=3;
+            }
+            slide.eq(index).show();
+        })
+    })
+</script>
+</html>
