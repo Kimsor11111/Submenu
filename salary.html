@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+    <style>
+        label{
+            font-size: 20px;
+        }
+        input{
+            width: 200px;
+            height:20px;
+        }
+        button{
+            width: 250px;
+            height: 30px;
+            cursor: pointer;
+        }
+        form{
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            width: 100%;
+            height: 400px;
+        }
+        table{
+            width: 950px;
+            border-collapse: collapse;
+        }
+        table , th , td {
+            border: 1px solid black;
+        }
+        th , td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <form action="">
+        <label for="">Name: </label>
+        <input type="text" class="name"><br><br>
+        <label for="">Sex: </label>
+        <input type="text" class="sex"><br><br>
+        <label for="">Salary per month: </label>
+        <input type="text" class="salary"><br><br>
+        <label for="">Workday: </label>
+        <input type="text" class="workday"><br><br>
+        <label for="">Actual workday: </label>
+        <input type="text" class="actualworkday"><br><br>
+        <label for="">Overtime: </label>
+        <input type="text" class="overtime"><br><br>
+        <label for="">Allowance: </label>
+        <input type="text" class="allowance"><br><br>
+        <label for="">Late time: </label>
+        <input type="text" class="late"><br><br>
+        <label for="">Early time: </label>
+        <input type="text" class="early"><br><br>
+        <button class="btn">Calculate</button>
+    </form>
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Sex</th>
+            <th>Salary</th>
+            <th>Workday</th>
+            <th>Actual Workday</th>
+            <th>Benefit</th>
+            <th>Deduction</th>
+            <th>Grosspay</th>
+            <th>Tax</th>
+            <th>Final Salary</th>
+        </tr>
+        <!-- <tr>
+            <td>Kimsor</td>
+            <td>M</td>
+            <td>500$</td>
+            <td>26</td>
+            <td>24</td>
+            <td>20$</td>
+            <td>10$</td>
+            <td>400$</td>
+            <td>50000riel</td>
+            <td>350$</td>
+        </tr> -->
+    </table>
+</body>
+<script>
+    let btn = document.querySelector('.btn')
+    btn.addEventListener('click' , ()=>{
+        event.preventDefault();
+        let name = document.querySelector('.name').value
+        let sex = document.querySelector('.sex').value
+        let salary = parseFloat(document.querySelector('.salary').value)
+        let workday = parseInt(document.querySelector('.workday').value)
+        let actualworkday = parseInt(document.querySelector('.actualworkday').value)
+        let overtime = parseFloat(document.querySelector('.overtime').value)
+        let allowance = parseFloat(document.querySelector('.allowance').value)
+        let late = parseInt(document.querySelector('.late').value)
+        let early = parseInt(document.querySelector('.early').value)
+
+        let A = (salary * actualworkday) / workday
+
+        function B(salary , workday , overtime , allowance){
+            let rateperday = salary / workday
+            let rateperhour = rateperday / 8
+            let OT = overtime * rateperhour
+            return (OT + allowance);
+        }
+
+        function C(salary , workday , late , early){
+            let rateperday = salary / workday
+            let rateperhour = rateperday / 8
+            let latehour = late / 60
+            let earlyhour = early / 60
+            return (latehour + earlyhour) * rateperhour
+        }
+
+        //D
+        let Grosspay = A + B(salary , workday , overtime , allowance) - C(salary , workday , late , early)
+
+        function E(Grosspay){
+            let tax , taxamount
+            let riel = Grosspay * 4000
+            if(riel > 1200000 && riel <= 2400000) tax = 0.05
+            else if(riel > 2400000 && riel <= 5000000) tax = 0.1
+            else tax = 0.15
+            taxamount = (Grosspay * 4000) * tax
+            return taxamount
+        }
+
+        let finalsalary = Grosspay - E(Grosspay) / 4000
+
+        let tablerow = document.createElement('tr')  
+        tablerow.innerHTML = `
+                                <td>${name}</td>
+                                <td>${sex}</td>
+                                <td>${salary.toFixed(2)}$</td>
+                                <td>${workday}</td>
+                                <td>${actualworkday}(${A.toFixed(2)}$)</td>
+                                <td>${B(salary , workday , overtime , allowance).toFixed(2)}$</td>
+                                <td>${C(salary , workday , late , early).toFixed(2)}$</td>
+                                <td>${Grosspay.toFixed(2)}$</td>
+                                <td>${E(Grosspay).toFixed(2)}Riel</td>
+                                <td>${finalsalary.toFixed(2)}$</td>
+                            `
+        document.querySelector('table').appendChild(tablerow)
+    })
+</script>
+</html>
