@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        nav{
+            width: 100%;
+            height: 80px;
+            background-color: green;
+        }
+        nav ul{
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            height: 100%;
+        }
+        nav ul li{
+            width: 130px;
+            height: 100%;
+            margin-inline-end: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+        nav ul li a{
+            font-size: 18px;
+            color: white;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+        nav ul li .submenu{
+            position: absolute;
+            top: 80px;
+            width: 133px;
+            height: 100px;
+            display: none;
+        }
+        nav ul li .submenu ul{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+        }
+        nav ul li .submenu ul li{
+            width: 100%;
+            height: 33.33%;
+            background-color: tan;
+        }
+        nav ul li:hover .submenu{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <body>
+        <nav>
+            <ul>
+            </ul>
+        </nav>
+</body>
+<script>
+        let lang = [
+        {
+            'menu': 'HTML',
+            'link': 'https://www.w3schools.com/html/',
+            'submenu': [
+                {
+                    'subsmall': 'HTML1' ,
+                    'linksmall': 'https://www.w3schools.com/html/'
+                },
+                {
+                    'subsmall': 'HTML2',
+                    'linksmall': 'https://www.w3schools.com/html/html_formatting.asp'
+                }, 
+                {
+                    'subsmall': 'HTML3',
+                    'linksmall': 'https://www.w3schools.com/html/html_links.asp'
+                }
+            ]
+        },
+        {
+            'menu': 'CSS',
+            'link': 'https://www.w3schools.com/css/',
+            'submenu': [
+                {
+                    'subsmall': 'CSS1' ,
+                    'linksmall': 'https://www.w3schools.com/css/css_comments.asp'
+                },
+                {
+                    'subsmall': 'CSS2',
+                    'linksmall': 'https://www.w3schools.com/css/css_dimension.asp'
+                }, 
+                {
+                    'subsmall': 'CSS3',
+                    'linksmall': 'https://www.w3schools.com/css/css_list.asp'
+                }
+            ]
+        },
+        {
+            'menu': 'Java',
+            'link': 'https://www.w3schools.com/java/',
+            'submenu': [
+                {
+                    'subsmall': 'Java1' ,
+                    'linksmall': 'https://www.w3schools.com/java/java_output.asp'
+                },
+                {
+                    'subsmall': 'Java2',
+                    'linksmall': 'https://www.w3schools.com/java/java_type_casting.asp'
+                }, 
+                {
+                    'subsmall': 'Java3',
+                    'linksmall': 'https://www.w3schools.com/java/java_conditions.asp'
+                }
+            ]
+        },
+        {
+            'menu': 'PHP',
+            'link': 'https://www.w3schools.com/php/',
+            'submenu': [
+                {
+                    'subsmall': 'PHP1' ,
+                    'linksmall': 'https://www.w3schools.com/php/php_variables.asp'
+                },
+                {
+                    'subsmall': 'PHP2',
+                    'linksmall': 'https://www.w3schools.com/php/php_string.asp'
+                }, 
+                {
+                    'subsmall': 'PHP3',
+                    'linksmall': 'https://www.w3schools.com/php/php_if_else.asp'
+                }
+            ]
+        }
+    ]
+    var item = ''
+    for(let i = 0 ; i < lang.length ; i++){
+        var sub = ''
+        var submenu = lang[i].submenu
+        for(let j = 0 ; j < submenu.length ; j++){
+            sub +=  `
+                        <li><a href="${submenu[j].linksmall}" target="_blank">${submenu[j].subsmall}</a></li>
+                    `
+        }
+        item += `
+                    <li>
+                        <a href="${lang[i].link}" target="_blank">${lang[i].menu}</a>
+                        <div class = "submenu">
+                            <ul>
+                                ${sub}
+                            </ul>
+                        </div>
+                    </li>
+                `
+    }
+    document.querySelector('nav ul').innerHTML = item
+</script>
+</html>
